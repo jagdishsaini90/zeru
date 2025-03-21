@@ -9,6 +9,7 @@ export default function AssetTable({
   title = "Assets",
   showSelect = true,
   assetData = [],
+  placeholder = "Search asset",
 }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,11 +23,14 @@ export default function AssetTable({
       <h2 className="text-xl sm:text-2xl font-extrabold mb-4">{title}</h2>
 
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-start gap-3 sm:gap-4 mb-6">
-        <TextBox searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <TextBox
+          placeholder={placeholder}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+        />
         {showSelect && <Select cls="sm:ml-4" />}
       </div>
 
-      {/* Table Wrapper with scroll */}
       <div className="w-full overflow-x-auto">
         <table className="min-w-[600px] w-full text-left">
           <thead className="text-[#7D7D7D] text-sm whitespace-nowrap">
