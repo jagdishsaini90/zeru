@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import BarChart from "../../../components/chart";
-import AssetTable from "../../../components/assests";
+import Table from "../../../components/table";
 import Select from "../../../components/select";
 import Tabs from "../../../components/tabs";
 import { useSelector } from "react-redux";
@@ -65,11 +65,11 @@ const GlobalStats = () => {
       </div>
 
       <div className="flex flex-col md:flex-row gap-6">
-        <AssetTable assetData={assets?.assetsList} />
-        <AssetTable
+        <Table data={assets?.assetsList} />
+        <Table
           title="Chains"
           showSelect={false}
-          assetData={chains?.chainList}
+          data={chains?.chainList}
           placeholder="Search chains"
         />
       </div>

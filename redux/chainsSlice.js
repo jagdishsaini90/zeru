@@ -2,41 +2,24 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   chainList: [
-    {
-      icon: "/eth.webp",
-      name: "ETHEREUM",
-      borrow: "$20B",
-      collateral: "100M",
-      total: "1B",
-    },
-    {
-      icon: "/base.webp",
-      name: "BASE",
-      borrow: "$16B",
-      collateral: "150M",
-      total: "1.5B",
-    },
-    {
-      icon: "/bera.webp",
-      name: "BERA",
-      borrow: "$12B",
-      collateral: "200M",
-      total: "2B",
-    },
-    {
-      icon: "/polygon.webp",
-      name: "POLYGON",
-      borrow: "$10B",
-      collateral: "10M",
-      total: "100M",
-    },
-    {
-      icon: "/arbitrum.webp",
-      name: "ARB",
-      borrow: "$8B",
-      collateral: "50M",
-      total: "500M",
-    },
+    ...Array.from({ length: 70 }, (_, i) => {
+      const assets = [
+        { icon: "/eth.webp", name: "ETHEREUM" },
+        { icon: "/base.webp", name: "BASE" },
+        { icon: "/bera.webp", name: "BERA" },
+        { icon: "/polygon.webp", name: "POLYGON" },
+        { icon: "/arbitrum.webp", name: "ARBITRUM" },
+      ];
+      const asset = assets[i % assets.length];
+
+      return {
+        icon: asset.icon,
+        name: `${asset.name} ${i + 1}`,
+        borrow: `$${(Math.random() * 20 + 1).toFixed(2)}B`,
+        collateral: `${(Math.random() * 500 + 10).toFixed(0)}M`,
+        total: `${(Math.random() * 2 + 0.1).toFixed(2)}B`,
+      };
+    }),
   ],
 };
 

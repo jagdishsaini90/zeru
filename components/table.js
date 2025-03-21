@@ -1,22 +1,36 @@
-import React, { useState } from "react";
-import { ChevronLeft, ChevronRight, Search } from "lucide-react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Select from "./select";
 import TextBox from "./textbox";
 import Pagination from "./pagination";
 
-export default function AssetTable({
+export default function Table({
   title = "Assets",
   showSelect = true,
-  assetData = [],
+  data = [],
   placeholder = "Search asset",
 }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
-  const filteredAssets = assetData.filter((asset) =>
+  const filteredAssets = data.filter((asset) =>
     asset.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  useEffect(() => {
+    const totalPages = Math.ceil(filteredAssets.length / itemsPerPage);
+    if (currentPage > totalPages) {
+      setCurrentPage(1);
+    }
+  }, [searchTerm, filteredAssets.length]);
+
+  const paginatedAssets = filteredAssets.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  const totalPages = Math.ceil(filteredAssets.length / itemsPerPage);
 
   return (
     <div className="flex-1 mx-auto p-4 sm:p-6 bg-white rounded-[30px] border-[2px] border-[#F6F6F6] max-w-full">
@@ -42,7 +56,7 @@ export default function AssetTable({
             </tr>
           </thead>
           <tbody>
-            {filteredAssets.map((asset, idx) => (
+            {paginatedAssets.map((asset, idx) => (
               <tr key={idx} className="whitespace-nowrap">
                 <td className="py-4 px-4 flex items-center gap-3">
                   <Image
@@ -71,9 +85,15 @@ export default function AssetTable({
         </table>
       </div>
 
-      <div className="mt-6">
-        <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} />
-      </div>
+      {totalPages > 1 && (
+        <div className="mt-6">
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            setCurrentPage={setCurrentPage}
+          />
+        </div>
+      )}
     </div>
   );
 }
