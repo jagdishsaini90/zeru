@@ -165,7 +165,7 @@ const BarChart = ({ data = [], barColor = "#1abc9c" }) => {
       </div>
 
       <div className="bg-[#F2F9F7] rounded-3xl p-4 sm:p-6 w-full">
-        <div ref={chartRef} className="w-full" style={{ height: "100%" }}></div>
+        <div ref={chartRef} className="w-full h-[450px]"></div>
       </div>
     </div>
   );
