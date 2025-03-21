@@ -46,7 +46,7 @@ const GlobalStats = () => {
         })}
       </div>
 
-      <div className="p-6 border-[2px] border-[#F6F6F6] rounded-4xl">
+      <div className="p-3 md:p-6 border-[2px] border-[#F6F6F6] rounded-4xl">
         <div className="flex flex-wrap justify-between mb-4 gap-2">
           <Select />
           <Tabs
